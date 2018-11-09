@@ -10,6 +10,7 @@ Features:
 5. Admin pages to see today's online orders and manage(modify, delete, add) online order items, modify foodtruck location, and manage DB. (~/admin/signin, ~/admin/signup)
 6. Payment thru Stripe (disabled due to security)
 7. Email-based password reset (disabled due to security)
+8. Not much effort to its design, but more to its functions
 
 To run the codes:
 1. Install and eanble necessary tools (NodeJS, All Packages thru NPM, MongoDB) in your computer (http://localhost:3000)
