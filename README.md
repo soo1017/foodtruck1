@@ -13,5 +13,5 @@ Features:
 
 To run the Code:
 1. Install and eanble necessary tools (NodeJS, All Packages thru NPM, MongoDB) in your computer (http://localhost:3000)
-2. Go to 'seed' directory and run 'node ftlocationseeder.js' and 'node productseeder.js' to set up foodtruck location address and online order items
+2. Go to 'seed' directory and run 'node ftlocationseeder.js' and 'node productseeder.js' to set up foodtruck location addresses and online order items in DB
 3. Run 'npm start' and go to 'http://localhost:3000' to see the main page
