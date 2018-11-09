@@ -7,7 +7,7 @@ Features:
 2. Online order enabling with both a guest and signin.
 3. FoodTruck location display on the map based on its scheduled address.
 4. Contact enabling.
-5. Admin pages to see today's online orders and manage(modify, delete, add) online order items, modify foodtruck location, and manage DB.
+5. Admin pages to see today's online orders and manage(modify, delete, add) online order items, modify foodtruck location, and manage DB. (~/admin/signin, ~/admin/signup)
 6. Payment thru Stripe (disabled due to security)
 7. Email-based password reset (disabled due to security)
 
