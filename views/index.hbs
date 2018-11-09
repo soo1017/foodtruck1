@@ -1,0 +1,197 @@
+<section class="foodtruck section" id="id-foodtruck">
+    <div class="fttitle">
+        <h2>FOOD TRUCK</h2>
+        <h3 class="cls-foodtruck-h3">Schedule & Location</h3>
+        <h4 class="cls-foodtruck-h4">In order to deliver our palatable and exquisite asian dishes as fresh to you, our food truck comes near you. Please come by it at your convenience and pleasure</h4>
+    </div>
+
+    <div class="row ftcontent">
+        <div class="col-md-6 col-sm-6 schedule">
+<!--        <div class="col span-1-of-2 box">-->
+            <ion-icon name="calendar" class="icon-big"></ion-icon>
+            <h4>Schedule</h4>
+            <ul class="cls-calendar">
+                {{#each ftlocations}}
+                    <li class="cls-monday cls-calendar-li">{{this.day}}: @<span class="cls-span-calendar cls-span-monday"> '{{this.location}}' </span></li>
+                    
+                {{/each}}
+<!--                <li class="cls-friday cls-calendar-li">Friday: @<span class="cls-span-calendar cls-span-friday"> 'North Ave NW, Atlanta, GA' </span></li>-->
+                <li class="cls-weekend cls-calendar-li">Saturday & Sunday: <span class="cls-span-calendar cls-span-weekend"> Off </span></li>
+                <li class="cls-businesshour cls-calendar-bold"><ion-icon name="time" class="cls-time icon-big"></ion-icon>Business Hour: 11am - 3pm, 5pm - 7pm </li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-sm-6 map">
+            <ion-icon name="pin" class="icon-big"></ion-icon>
+            <h4>Today's Food Truck Location</h4>
+            <div id="id-map">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cls-section-pictures">
+    <ul class="pictures-showcase clearfix">
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish1-1.jpg" alt="">
+            </figure>
+        </li>
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish2-1.jpg" alt="">
+            </figure>
+        </li>
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish3-1.jpg" alt="">
+            </figure>
+        </li>
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish4-1.jpg" alt="">
+            </figure>
+        </li>
+    </ul>
+    <ul class="pictures-showcase clearfix">
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish5-1.jpg" alt="">
+            </figure>
+        </li>
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish6-1.jpg" alt="">
+            </figure>
+        </li>
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish7-1.jpg" alt="">
+            </figure>
+        </li>
+        <li>
+            <figure class="pictures-photo">
+                <img src="/images/dishes/dish8-1.jpg" alt="">
+            </figure>
+        </li>
+    </ul>
+</section>
+
+<section class="main-menus section" id="id-menus">
+    <div class="row1 menus-title overflow">
+        <h2 class="cls-menus-title">MENUS</h2>
+    </div>
+
+    <div class="row1">
+        <div class="category sushi">
+            <h4>Sushi</h4>
+        </div>
+        {{#each sushis}}
+        <div class = "row sushi">
+            {{#each this}}
+           <div class = "col-sm-6 col-md-4">
+
+              <div class = "caption clearfix">
+                 <p class="name">{{this.name}}</p>
+                 <p class="description">{{this.description}}</p>
+
+                 <div class="price">
+                    <p class="price float-left">{{this.price}}</p> 
+                 </div>
+
+              </div>
+           </div>
+            {{/each}}
+        </div>
+        {{/each}}
+
+        <div class="category noodle">
+            <h4>Noodle</h4>
+        </div>
+        {{#each noodles}}
+        <div class = "row noodle">
+           {{#each this}}
+           <div class = "col-sm-6 col-md-4">
+              <div class = "caption clearfix">
+                 <p class="name">{{this.name}}</p>
+                 <p class="description">{{this.description}}</p>
+
+                 <div class="price">
+                    <p class="price float-left">{{this.price}}</p> 
+                 </div>
+              </div>
+           </div>
+            {{/each}}
+        </div>
+        {{/each}}
+
+        <div class="category drink">
+            <h4>Drink</h4>
+        </div>
+        {{#each drinks}}
+        <div class = "row drink">
+           {{#each this}}
+           <div class = "col-sm-6 col-md-4">
+              <div class = "caption clearfix">
+                 <p class="name">{{this.name}}</p>
+                 <p class="description">{{this.description}}</p>
+
+                 <div class="price">
+                    <p class="price float-left">{{this.price}}</p> 
+                 </div>
+              </div>
+           </div>
+            {{/each}}
+        </div>
+        {{/each}}
+    </div>
+    <div class="onlineorder">
+        <a class="btn btn-success" href="/shop">Online Order</a>
+    </div>
+</section>
+
+<section class="contact section" id="id-contact">
+    <div class="row1 contact-title">
+        <h3>CONTACT US</h3>
+        <h4>For catering, Please contact us here with details with your phone number</h4>
+    </div>
+    <div class="row1 error-mge" style="display:none;" align="center">
+        <p>Please fill all fields up</p>
+    </div>
+    <div class="row">
+        <form method="post" action="/contact" class="contact-form">
+            <div class="row contact-input">
+                <div class="col-md-4 col-sm-4">
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <input type="text" name="name" id="id-name" placeholder="Your name" required>
+                </div>
+            </div>
+            <div class="row contact-input">
+                <div class="col-md-4 col-sm-4">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <input type="email" name="email" id="id-email" placeholder="Your email" required>
+                </div>
+            </div>
+            <div class="row contact-input">
+                <div class="col-md-4 col-sm-4">
+                    <label>Drop us a line</label>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <textarea name="message" placeholder="Your message" id="id-textinput"></textarea>
+                </div>
+            </div>
+            <div class="row cls-contact-btn-div0">
+                <div class="col-md-4 col-sm-4">
+                    <label>&nbsp;</label>
+                </div>
+                <div class="col-md-8 col-sm-8 contact-btn-div1">
+                    <input type="submit" value="Contact Us" class="btn btn-primary contact-btn">
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+

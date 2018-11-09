@@ -1,0 +1,162 @@
+{{# if preorder}}
+<div class="welcomeback">
+        <p>Welcome Back <span>'{{preorder.name}}'</span></p>
+</div>
+{{else}}
+{{/if}}
+<section class="checkout-title">
+    <div>
+        <h4>CHECKOUT</h4>           
+    </div>
+</section>
+        
+<!--<section class="checkout" id="id-checkout">-->
+    <div class='row'>
+        
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 checkout-part">
+            {{# if isLoggedIn}}
+            <form action="/shop/checkout" method="post" id="checkout-form">
+            {{else}}
+            <form action="/shop/checkout-guest" method="post" id="checkout-form">
+            {{/if}}
+                <p class="pickup-title">Pickup Information</p>
+                {{# if preorder}}
+                <div class="pickup">
+                    <div class="name cls-input">
+                        <p>Full Name</p>
+                        <input type="text" name="name" id="name" class="cls-name" placeholder="John Smith" value='{{this.name}}' required>
+                    </div>
+                    <div class="email cls-input">
+                        <p>Email</p>
+                        <input type="text" name="email" id="email" class="cls-email" placeholder="email@example.com"  value="{{this.email}}" required>
+                    </div>
+                    <div class="cls-checkout-info-phone cls-input">
+                        <p>Mobile Phone</p>
+                        <input type="text" name="phone" id="phone" class="cls-phone" placeholder="(777)777-7777" value="{{this.phone}}" required>
+                    </div>
+                    <div class="cls-checkout-info-address cls-input">
+                        <p>Address</p>
+                        <input type="text" name="address" id="address" class="cls-address" placeholder="777 Uptaste st, Union City, CA 94530" value="{{this.address}}"  required>
+                    </div>
+                </div>
+                {{else}}
+                <div class="pickup">
+                    <div class="name cls-input">
+                        <p>Full Name</p>
+                        <input type="text" name="name" id="name" class="cls-name" placeholder="John Smith" required>
+                    </div>
+                    <div class="email cls-input">
+                        <p>Email</p>
+                        <input type="text" name="email" id="email" class="cls-email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="cls-checkout-info-phone cls-input">
+                        <p>Mobile Phone</p>
+                        <input type="text" name="phone" id="phone" class="cls-phone" placeholder="(777)777-7777" required>
+                    </div>
+                    <div class="cls-checkout-info-address cls-input">
+                        <p>Address</p>
+                        <input type="text" name="address" id="address" class="cls-address" placeholder="777 Uptaste st, Union City, CA 94530"  required>
+                    </div>
+                </div>
+                {{/if}}
+                
+                <p class="payment-title">Payment Information</p>
+                <div class="payment">
+                    <div class="creditnumber cls-input">
+                        <p>Card Number</p>
+                        <input type="text" name="number" id="number" class="cls-cardnumber" placeholder="1234 5678 9012 3456"  required>
+                    </div>
+                    <div class="creditexpr cls-input">
+                        <p>Exprired Date</p>
+                        <input type="text" name="mm" id="expr-month" class="cls-expr-month" placeholder="Month"  required>
+                        <input type="text" name="yy" id="expr-year" class="cls-expr-year" placeholder="Year" required>
+                    </div>
+                    <div class="creditcvv cls-input">
+                        <p>CVV</p>
+                        <input type="text" name="cvv" id="cvv" class="cls-cvv" placeholder="777" required>
+                    </div>
+                    <div class="creditzip cls-input">
+                        <p>ZIP Code</p>
+                        <input type="text" name="zip" id="zip" class="cls-zip" placeholder="94530"  required>
+                    </div>
+                </div>
+<!--                <input type="submit" style="display:none" />-->
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <input type="submit" style="display:none" class="btn btn-success" id="buy">
+<!--                <button type="submit" style="display:none" class="btn btn-success" id="buy">Buy Now</button>-->
+            </form>
+            <div id="charge-errors" class="alert alert-danger" {{#if noErrors}} style="display:none" {{/if}}>
+                {{errMsg}}
+            </div>
+            <div class="warning">
+                <p>Please fill up all fields</p>
+            </div>
+        </div>
+        
+        
+        <!-- -->
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cart-part">
+            <div class="inner-cart">
+                <div class="cartpart-header">
+                    <img src="/images/checkout/dish.jpg" alt="">
+                </div>
+                <div class="cartpart-ready">
+                    <p>Ready within 20-25 min</p>
+                </div>
+                <div class="cartpart-content">
+                    <div class="cartpart-pickuploc">
+                        <p>Pickup Loc: <span id="id-pickuploc">{{pickupLoc}}</span></p>
+                        {{#if isLoggedIn}}
+                        <a href="/shop/checkout/pickuploc" id="id-change">Change</a>
+                        {{else}}
+                        <a href="/shop/checkout/pickuploc-guest" id="id-change">Change</a>
+                        {{/if}}
+                    </div>
+                    
+                    <ul class="content-ul" id="id-content-ul">
+                        {{#if isLoggedIn}}
+                            {{#each cartItems}}
+                            <li>
+                                <p>{{this.item.name}}</p>
+                                <a href="/shop/checkout/remove-one-fromcart/{{this.item._id}}"><ion-icon name="close-circle" id="id-item-delete"></ion-icon></a>
+                                <p class="content-price">{{this.item.price}}</p>
+                            </li>
+                            {{/each}}
+                        {{else}}
+                            {{#each cartItems}}
+                            <li>
+                                <p>{{this.item.name}}</p>
+                                <a href="/shop/checkout/remove-one-fromcart-guest/{{this.item._id}}"><ion-icon name="close-circle" id="id-item-delete"></ion-icon></a>
+                                <p class="content-price">{{this.item.price}}</p>
+                            </li>
+                            {{/each}}
+                        {{/if}}
+                    </ul>
+                </div>
+                <hr style="width:90%">
+                <div class="cartpart-pay">
+                    <p>You Pay<span id="id-youpay">${{totalPrice}}</span></p>
+                </div>
+                <div class="cartpart-clear">
+                    {{#if isLoggedIn}}
+                    <a href="/shop/checkout/clear-cart" class="clearcart">Clear Cart</a>
+                    {{else}}
+                    <a href="/shop/checkout/clear-cart-guest" class="clearcart">Clear Cart</a>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="cartpart-placeorder">
+                {{# if totalQty }}
+<!--                <input type="submit" value="Place Order" class="placeorder btn btn-primary" id="id-placeorder">-->
+                <label type="submit" class="placeorder btn btn-primary" id="id-placeorder" for="buy">Place Order</label>
+                {{/if}}
+            </div>
+        </div>
+                
+    </div>
+<!--</section>-->
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript" src="../javascripts/checkout.js"></script>
+ 

@@ -1,0 +1,90 @@
+
+
+<!--<div id="id-menus" class="blur">-->
+
+<section class="menu-order">
+    <div class="row1 order-title overflow">
+        <h2>MENUS</h2>
+    </div>
+    <div id="id-menus" class="">
+        <div class="category">
+            <h4>Sushi</h4>
+        </div>
+        {{#each sushis}}
+        <div class = "row">
+            {{#each this}}
+               <div class = "col-sm-6 col-md-4 boxx">
+                  <div class = "thumbnail">
+                     <img src = "{{this.image}}" alt = "Generic placeholder thumbnail" class="img-responsive">
+                  </div>
+                  <div class = "caption clearfix">
+                     <p class="name"><strong>{{this.name}}</strong></p>
+                     <p class="description">{{this.description}}</p>
+                     <div>
+                        <p class="price float-left">{{this.price}}</p>
+                        <a href = "/shop/add-to-cart/{{this._id}}" class = "btn btn-success float-right saveScrollPostion" role = "button">
+                           Add to Cart
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            {{/each}}
+        </div>
+        {{/each}}
+
+        <div class="category">
+            <h4>Noodle</h4>
+        </div>
+        {{#each noodles}}
+        <div class = "row">
+           {{#each this}}
+               <div class = "col-sm-6 col-md-4 boxx">
+                  <div class = "thumbnail">
+                     <img src = "{{this.image}}" alt = "Generic placeholder thumbnail" class="img-responsive">
+                  </div>
+                  <div class = "caption clearfix">
+                     <p class="name"><strong>{{this.name}}</strong></p>
+                     <p class="description">{{this.description}}</p>
+                     <div>
+                        <p class="price float-left">{{this.price}}</p> 
+                        <a href = "/shop/add-to-cart/{{this._id}}" class = "btn btn-success float-right saveScrollPostion" role = "button">
+                           Add to cart
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            {{/each}}
+        </div>
+        {{/each}}
+
+        <div class="category">
+            <h4>Drink</h4>
+        </div>
+        {{#each drinks}}
+        <div class = "row">
+           {{#each this}}
+               <div class = "col-sm-6 col-md-4 boxx">
+                  <div class = "thumbnail">
+                     <img src = "{{this.image}}" alt = "Generic placeholder thumbnail" class="img-responsive">
+                  </div>
+                  <div class = "caption clearfix">
+                      <p class="name"><strong>{{this.name}}</strong></p>
+                     <p class="description">{{this.description}}</p>
+                     <div>
+                        <p class="price float-left">{{this.price}}</p> 
+                        <a href = "/shop/add-to-cart/{{this._id}}" class = "btn btn-success float-right saveScrollPostion" role = "button">
+                           Add to Cart
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            {{/each}}
+        </div>
+        {{/each}}
+    </div>
+</section>
+
+<!---->
+<!---->
+<!---->
+

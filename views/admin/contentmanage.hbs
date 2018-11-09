@@ -1,0 +1,84 @@
+
+<div class="admin-nav row">
+    <div class="col-md-4 col-sm-4">
+        <a href="/admin/monitor" class="btn btn-success" role="button">Order Monitor</a>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <a href="/admin/contentmanage" class="btn btn-success" role="button">Content Management</a>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <a href="/admin/logout" class="btn btn-danger" role="button">Log Out</a>
+    </div>
+</div>
+<div class="modify">
+    <div>
+        <h1>Content Management</h1>
+    </div>
+    <hr>
+    <div class="col-md-8 col-sm-8 offset-md-2 offset-sm-2 modify-1">
+        
+        <div class="">
+            <h4>Food Truck Location Modify</h4>
+            <form method="post" action="/admin/contentmanage/modify-ftlocation" class="FT-form">
+                <div class="row day">
+                    <label for="day">Day</label>
+                    <input type="text" name="day" id="id-day" placeholder="Wednesday - case sensitive" required>
+                </div>
+                <div class="row address">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" id="id-address" placeholder="1234 example st, Example City, CA" required>
+                </div>
+                <input type="hidden" name="_csrf" value="{{csrfToken }}">
+                <input type="submit" value="Modify" class="btn btn-primary modify-btn">
+            </form>    
+        </div>
+        <hr>
+        
+        <div class="">
+            <h4>Food Delete</h4>
+            <form method="post" action="/admin/contentmanage/delete-food" class="food-delete-form">
+                <div class="row foodname">
+                    <label for="food">Food Name</label>
+                    <input type="text" name="name" id="id-food" placeholder="Cal" required>
+                </div>
+                <input type="hidden" name="_csrf" value="{{csrfToken }}">
+                <input type="submit" value="Delete Food" class="btn btn-primary delete-btn">
+            </form>    
+        </div>
+        
+        <div class="">
+            <h4>Food Add</h4>
+            <form method="post" action="/admin/contentmanage/add-food?_csrf={{csrfToken}}" class="food-add-form" enctype="multipart/form-data">
+<!--            <form method="post" action="/admin/contentmanage/add-food?_csrf=csrfToken" class="food-add-form" enctype="multipart/form-data">-->
+                <div class="row foodname">
+                    <label for="name">Food Name</label>
+                    <input type="text" name="name" id="id-name" placeholder="Cal" required>
+                </div>
+                <div class="row foodprice">
+                    <label for="price">Food Price</label>
+                    <input type="text" name="price" id="id-price" placeholder="9.99" required>
+                </div>
+                <div class="row fooddescription">
+                    <label for="description">Food Description </label>
+                    <input type="text" name="description" id="id-food" placeholder="less than 100 chars" required>
+                </div>
+                <div class="row foodcategory">
+                    <label for="category">Food Category</label>
+                    <select name="category" id="id-category">
+                        <option value=""></option>
+                        <option value="SU">Sushi</option>
+                        <option value="NO">Noodle</option>
+                        <option value="DR">Drink</option>
+                    </select>             
+                </div>
+                <div class="row foodimage">
+                    <label class="button" for="foodimage">Food Image (330 x 150px recommended)</label>
+                    <input type="file" id="foodimage" name="foodimage" accept="image/*">
+                </div>
+<!--                <input type="hidden" name="_csrf" value="csrfToken">-->
+                <input type="submit" value="Add Food" class="btn btn-primary add-btn">
+            </form>    
+        </div>
+        
+    </div>
+</div>

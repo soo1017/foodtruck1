@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style data-styles="">ion-icon{visibility:hidden}.hydrated{visibility:inherit}</style>
+        <title>UpTaste</title>
+        <link rel="stylesheet" href="./UpTaste_files/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="./UpTaste_files/normalize.css">
+        <link rel="stylesheet" type="text/css" href="./UpTaste_files/grid.css">
+        <link rel="stylesheet" href="./UpTaste_files/css">
+        <link rel="stylesheet" href="./UpTaste_files/bootstrap.min.css">
+        <link rel="stylesheet" href="./UpTaste_files/style.css">
+    <script src="./UpTaste_files/ionicons.3brfwxfm.js" type="module" crossorigin="true" data-resources-url="https://unpkg.com/ionicons@4.4.4/dist/ionicons/" data-namespace="ionicons"></script><script type="text/javascript" charset="UTF-8" src="./UpTaste_files/common.js"></script><script type="text/javascript" charset="UTF-8" src="./UpTaste_files/util.js"></script><script type="text/javascript" charset="UTF-8" src="./UpTaste_files/geocoder.js"></script><template></template></head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light nav-header">
+        <!--
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        -->
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:3000/">FoodTruck <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:3000/shop">Menus</a>
+                    </li>
+                </ul>
+                <div class="nav-item my-2 navbar-header">
+                    <a href="http://localhost:3000/" class="navbar-brand"><img src="./UpTaste_files/logo.png" alt="uptaste logo" class="mainlogo"></a>
+                </div>
+                <ul class="navbar-nav my-2 my-lg-0">
+                    <li class="nav-item dropdown active cls-cart">
+                        <div class="navcart">
+                            <img src="./UpTaste_files/cart.png" alt="Smiley face" height="40" width="40">
+                            <span class="badge badge-warning cartcount">0</span>
+                        </div>
+        <!--                -->
+                        <div id="id-shoppingcart" class="shoppingcart" style="display:none">
+                            <!--                    -->
+                            <div class="yes-items">
+                                <div class="shoppingcart-head">
+                                    <p>
+                                        <span id="count-cart">0</span>
+                                        <span id="item-cart">items</span>
+                                        <span id="item-cart">item</span>
+                                    </p>
+                                    <a href="http://localhost:3000/shop/" id="id-cartclose">×</a>
+                                </div>
+                                <div class="shoppingcart-ready">
+                                    <p class="ready-cart">Ready within 20-25 min</p>
+                                </div>
+                                <div class="shoppingcart-content">
+                                    <ul class="content-ul" id="content-ul">
+                                        <li>
+                                            <p></p>
+                                            <a href="http://localhost:3000/shop/remove-one-fromcart/"><ion-icon name="close-circle" id="id-item-delete" role="img" class="hydrated" aria-label="close circle"></ion-icon></a>
+                                            <p class="content-price"></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <hr style="width:90%">
+                                <div class="shoppingcart-pay">
+                                    <p>You Pay<span id="id-youpay">$0.00</span></p>
+                                </div>
+                                <div class="shoppingcart-button">
+                                    <div>
+                                        <a href="http://localhost:3000/shop/checkout" class="btn btn-success" id="id-checkout-btn">Proceed with SignIn</a>
+                                    </div>
+                                    <div>
+                                        <a href="http://localhost:3000/shop/checkout_guest" class="btn btn-outline-success" id="id-checkout-btn">Proceed with a Guest</a>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <a href="http://localhost:3000/shop/clear-cart" class="clearcart">Clear Cart</a>
+                                    </div>
+        
+                                </div>
+                            </div>
+                            <!--                    -->
+                            <div class="no-items">
+                                <div>
+                                    <a href="http://localhost:3000/shop/" id="id-cartclose">×</a>
+                                </div>
+                                <div>
+                                    <h4>No Items in Cart</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                
+                    <li class="nav-item dropdown active cls-user">
+        <!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> User</a>-->
+                        <a class="nav-link dropdown-toggle" href="http://localhost:3000/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./UpTaste_files/user.png" alt="Smiley face" height="44" width="44"></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="http://localhost:3000/user/signup">Signup</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="http://localhost:3000/user/signin">Signin</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="id-bgimage" class="cls-bgimage">
+            <img class="cls-slides" src="./UpTaste_files/dish1.jpg" style="width: 100%; height: 100%; display: none;">
+            <img class="cls-slides" src="./UpTaste_files/dish2.jpg" style="width: 100%; height: 100%; display: block;">
+            <img class="cls-slides" src="./UpTaste_files/dish3.jpg" style="width: 100%; height: 100%; display: none;">    
+            <div class="cls-center cls-display-bottommiddle cls-container cls-text-white" style="width:100%">
+                <span class="cls-badge demo cls-border cls-transparent cls-hover-white" onclick="currentDiv(1)"></span>
+                <span class="cls-badge demo cls-border cls-transparent cls-hover-white cls-white" onclick="currentDiv(2)"></span>
+                <span class="cls-badge demo cls-border cls-transparent cls-hover-white" onclick="currentDiv(3)"></span>
+            </div>
+        </div><!--        jQuery CDN should be before Stripe -->
+        <script src="./UpTaste_files/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <div class="container">
+            <section class="foodtruck section" id="id-foodtruck">
+    <div class="fttitle">
+        <h2>Food Truck</h2>
+        <h3 class="cls-foodtruck-h3">Schedule &amp; Location</h3>
+        <h4 class="cls-foodtruck-h4">In order to deliver our palatable and exquisite asian dishes as fresh to you, our food truck comes near you. Please come by it at your convenience and pleasure</h4>
+    </div>
+
+    <div class="row1 overflow">
+        <div class="col span-1-of-2 box">
+<!--        <div class="col span-1-of-2 box">-->
+            <ion-icon name="calendar" class="icon-big hydrated" role="img" aria-label="calendar"></ion-icon>
+            <h3>Schedule</h3>
+            <ul class="cls-calendar">
+<!--                <li class="cls-friday cls-calendar-li">Friday: @<span class="cls-span-calendar cls-span-friday"> 'North Ave NW, Atlanta, GA' </span></li>-->
+                <li class="cls-weekend cls-calendar-li">Saturday &amp; Sunday: <span class="cls-span-calendar cls-span-weekend"> Off </span></li>
+                <li class="cls-businesshour cls-calendar-bold"><ion-icon name="time" class="cls-time icon-big hydrated" role="img" aria-label="time"></ion-icon>Business Hour: 11am - 3pm, 5pm - 7pm </li>
+            </ul>
+        </div>
+        <div class="col span-1-of-2 box">
+            <ion-icon name="pin" class="icon-big hydrated" role="img" aria-label="pin"></ion-icon>
+            <h3>Food Truck's Location Today</h3>
+            <div id="id-map">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<div class="category">
+    <h4>Sushi</h4>
+</div>
+<div class="row">
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>cal</h3>
+         <p class="description">born in california, so it is very popular</p>
+         
+         <div>
+            <p class="price float-left">10.99</p> 
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>kumo</h3>
+         <p class="description">movie title is same as this name because it is very provocative</p>
+         
+         <div>
+            <p class="price float-left">11.99</p> 
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>rainbow</h3>
+         <p class="description">rainbow with colorful and tasty</p>
+         
+         <div>
+            <p class="price float-left">12.99</p> 
+         </div>
+         
+      </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>tokyo</h3>
+         <p class="description">very beautiful and good</p>
+         
+         <div>
+            <p class="price float-left">9.99</p> 
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>tsunami</h3>
+         <p class="description">big wave of tasty flows into your mouth when eating it</p>
+         
+         <div>
+            <p class="price float-left">7.99</p> 
+         </div>
+         
+      </div>
+   </div>
+</div>
+
+<div class="category">
+    <h4>Noodle</h4>
+</div>
+<div class="row">
+   <div class="col-sm-6 col-md-4">
+      <div class="caption clearfix">
+         <h3>soba</h3>
+         <p class="description">japanese delicios cold noodle. very crispy when soaked with soy sauce. good to eat in hot summer to relieve hotness</p>
+         
+         <div>
+            <p class="price float-left">10.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      <div class="caption clearfix">
+         <h3>chicken</h3>
+         <p class="description">made with fresh chicken meat. everyone will love it due to its popularity</p>
+         
+         <div>
+            <p class="price float-left">11.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      <div class="caption clearfix">
+         <h3>japchae</h3>
+         <p class="description">korean noodle made with a variety of seasoned vegetable mainly. for meat lover, it can be added with grounded beef to increase its various flavor</p>
+         
+         <div>
+            <p class="price float-left">12.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-sm-6 col-md-4">
+      <div class="caption clearfix">
+         <h3>pasta</h3>
+         <p class="description">italian noodle. the world loves it. creamy with milk or fresh with seafood</p>
+         
+         <div>
+            <p class="price float-left">9.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      <div class="caption clearfix">
+         <h3>singapore</h3>
+         <p class="description">not know it very much. it looks delicious</p>
+         
+         <div>
+            <p class="price float-left">7.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      <div class="caption clearfix">
+         <h3>udon</h3>
+         <p class="description">popular among many nations. various styles of udon in the world</p>
+         
+         <div>
+            <p class="price float-left">15.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-sm-6 col-md-4">
+      <div class="caption clearfix">
+         <h3>ramen</h3>
+         <p class="description">very tasty. choose between many to please your taste</p>
+         
+         <div>
+            <p class="price float-left">3.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+</div>
+
+<div class="category">
+    <h4>Drink</h4>
+</div>
+<div class="row">
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>coke</h3>
+         <p class="description">refreshing Product to boost up your thirst. everyone enjoys coke anywhere and anytime</p>
+         
+         <div>
+            <p class="price float-left">0.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>juice</h3>
+         <p class="description">just arrive from farm picking. it nourishes your body and soul with watering and juicy fruit</p>
+         
+         <div>
+            <p class="price float-left">3.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>cr7</h3>
+         <p class="description">donot know what it is. but it has a cool name that sounds like coming from alien planet</p>
+         
+         <div>
+            <p class="price float-left">3.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>monster</h3>
+         <p class="description">cool tea Product. it leads you into a new taste world that you haver never taste. monster flavor to wake you up</p>
+         
+         <div>
+            <p class="price float-left">1.5</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+   <div class="col-sm-6 col-md-4">
+      
+      <div class="caption clearfix">
+         <h3>redbull</h3>
+         <p class="description">energy Product to charge you up like hit by a red bull. watch around you to not be hit by a bull</p>
+         
+         <div>
+            <p class="price float-left">2.99</p> 
+            
+         </div>
+         
+      </div>
+   </div>
+</div>
+
+
+        </div>
+        <footer>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3">
+              <h3>About Us</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                 Pellentesque imperdiet consectetur dolor in elementum.</p>
+        
+              </div>
+              <div class="col-md-2 list">
+                <ul>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                </ul>
+        
+              </div>
+              <div class="col-md-2 list">
+                <ul>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                  <li><a href="http://localhost:3000/#">Lorem Ipsum</a></li>
+                </ul>
+        
+              </div>
+              <div class="col-md-2">
+            
+              </div>
+              <div class="col-md">
+                <h5><strong>Contact Info</strong></h5>
+                <p><strong>Adress:</strong> 514 S. Magnolia St.
+        Orlando, FL 32806 <!-- Random Adress -->
+        </p>
+                <p><strong>Email:</strong> email@example.com</p>
+                <p><strong>Tel.:</strong> (888) 888 8888</p>
+              </div>
+            </div>
+          </div>
+          
+        </footer>        
+        <script src="./UpTaste_files/bootstrap.min.js"></script>
+        <script src="./UpTaste_files/js" async="" defer=""></script>
+        <script src="./UpTaste_files/ionicons.js"></script>
+        <script type="text/javascript" src="./UpTaste_files/index.js"></script>
+    
+
+</body></html>

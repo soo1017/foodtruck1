@@ -1,0 +1,47 @@
+
+{{# if logoOut}}
+{{else}}
+<div class="admin-nav row">
+    <div class="col-md-4 col-sm-4">
+        <a href="/admin/monitor" class="btn btn-success" role="button">Order Monitor</a>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <a href="/admin/contentmanage" class="btn btn-success" role="button">Content Management</a>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <a href="/admin/logout" class="btn btn-danger" role="button">Log Out</a>
+    </div>
+</div>
+{{/if}}
+<div class=" sign sign-monitor">
+    
+    <div class="monitor-title">
+        <h1>Order Monitor</h1>
+    </div>
+    <hr>
+    <div class="col-md-8 col-sm-8 offset-md-2 offset-sm-2 order-panel">
+        
+        {{# each orders }}
+            <div class="panel panel-default">
+<!--            <div class="panel-heading"> SignUp to the system </div>-->
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <div class="order-id">
+                            <p>{{this._id}} - {{this.time}} ::::: <a href="/admin/complete-order/{{this._id}}"><ion-icon name="close" id="id-close"></ion-icon></a>  <span><ion-icon name="checkbox-outline" id="id-complete"></ion-icon></span> <span><ion-icon name="arrow-dropleft" id="id-extend"></ion-icon></span></p>   
+                        </div>
+                        <li class="list-group-item justify-content-between align-items-center order-item">
+<!--
+                             this.item.name  | this.qty 
+                            <span class="badge badge-primary badge-pill">this.price</span>
+-->
+                            <p>{{this.details}}</p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="panel-footer order-price" id="id-order-price"><strong>${{ this.cart.totalPrice }}</strong></div>
+                <hr>
+            </div>
+        {{/each}}
+    </div>
+</div>

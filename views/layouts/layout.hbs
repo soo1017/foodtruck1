@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/grid.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bai+Jamjuree|Mali|Merriweather|Poppin|Work+Sans|Berkshire+Swash|Petit+Formal+Script|Charmonman">
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' />
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel="shortcut icon" href="./images/favicon/uptaste-favicon.ico" type="image/x-icon">
+    </head>
+    <body onLoad="document.location.history.go(0);">
+        {{> header}}
+<!--        jQuery CDN should be before Stripe -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <div class="container">
+            {{{body}}}
+        </div>
+        {{> footer}}
+        
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoOzwWV6WImpwxjBrLx74Cuhz8hPFkBzE&callback=initMap" async defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.runtime.min.js" integrity="sha256-fqlP/jrZtkHRW/kmrDOLIAo7QUNgyC9CNGl/gGh4hRM=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>
+        <script type="text/javascript" src="/javascripts/index.js"></script>
+    </body>
+</html>
