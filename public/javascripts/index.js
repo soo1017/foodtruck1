@@ -5,9 +5,9 @@ var slideNum = 0;
 var ft_address = '33592 Alvarado-Niles Rd, Union City, CA';
 $(document).ready(function() {
     // on certain links save the scroll postion.
-    $('.saveScrollPostion').on("click", function (e) {
+    $('.saveScrollPosition').on("click", function (e) {
         var currentYOffset = window.pageYOffset;  // save current page postion.;
-        document.cookie = 'jumpToScrollPostion=' + currentYOffset;
+        document.cookie = 'jumpToScrollPosition=' + currentYOffset;
     });
     carousel();
     
@@ -30,11 +30,14 @@ $(document).ready(function() {
         console.log("allcookie: ", allcookie);
         var cookieArray = allcookie.split(';');
         var value;
-        if (cookieArray[0].split('=')[0] == 'jumpToScrollPostion') {
-            value = cookieArray[0].split('=')[1];
+        for (var i=0; i<cookieArray.length; i++) {
+            if (cookieArray[i].split('=')[0] == 'jumpToScrollPosition' && cookieArray[i].split('=')[1] != '0') {
+                value = cookieArray[i].split('=')[1];
+                break;
+            }
         }
         window.scrollTo(0, value);
-        delete_cookie('jumpToScrollPostion');
+        delete_cookie('jumpToScrollPosition');
     };
     if (document.getElementById('id-change')) {
         document.getElementById('id-change').addEventListener('click', function() {
