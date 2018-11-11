@@ -319,7 +319,7 @@ function getFoodTruckAddress() {
             address_temp = link.innerText || link.textContent;
             ft_address = address_temp.replace("'", "");
             
-            element_temp1 = document.getElementsByClassName("cls-calendar-li")[5];
+            element_temp1 = document.getElementById("id-weekend");
             element_temp1.classList.add("cls-calendar-bold");
             break;
         case 1:
@@ -381,7 +381,7 @@ function getFoodTruckAddress() {
             address_temp = link.innerText || link.textContent;
             ft_address = address_temp.replace("'", "");
             
-            element_temp1 = document.getElementsByClassName("cls-calendar-li")[5];
+            element_temp1 = document.getElementById("id-weekend");
             element_temp1.classList.add("cls-calendar-bold");
 //            element_temp2 = document.getElementsByClassName("cls-calendar-li")[4];
 //            element_temp2.classList.remove("cls-calendar-bold");
