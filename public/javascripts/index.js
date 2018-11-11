@@ -17,11 +17,6 @@ $(document).ready(function() {
         } else {
             ft_address = '33592 Alvarado-Niles Rd, Union City, CA';
         }
-//        var headerHeight = $('.cls-bgimage').height() + 'px';
-//        console.log("headerHeight", headerHeight);
-//        if (headerHeight != "0px") {
-//            $('.cls-section-foodtruck').css('margin-top', headerHeight);
-//        }
     }
 
     // check if we should jump to postion.
@@ -299,7 +294,6 @@ function initMap() {
             draggable: true,
             animation: google.maps.Animation.DROP,
             position: myLatLng
-    //        position: {lat: 59.327, lng: 18.067}
         });
         marker.addListener('click', toggleBounce);
     });
@@ -342,8 +336,6 @@ function getFoodTruckAddress() {
             
             element_temp1 = document.getElementsByClassName("cls-calendar-li")[1];
             element_temp1.classList.add("cls-calendar-bold");
-//            element_temp2 = document.getElementsByClassName("cls-calendar-li")[0];
-//            element_temp2.classList.remove("cls-calendar-bold");
             break;
         case 3:
             day = "Wednesday";
@@ -353,8 +345,6 @@ function getFoodTruckAddress() {
             
             element_temp1 = document.getElementsByClassName("cls-calendar-li")[2];
             element_temp1.classList.add("cls-calendar-bold");
-//            element_temp2 = document.getElementsByClassName("cls-calendar-li")[1];
-//            element_temp2.classList.remove("cls-calendar-bold");
             break;
         case 4:
             day = "Thursday";
@@ -364,8 +354,6 @@ function getFoodTruckAddress() {
             
             element_temp1 = document.getElementsByClassName("cls-calendar-li")[3];
             element_temp1.classList.add("cls-calendar-bold");
-//            element_temp2 = document.getElementsByClassName("cls-calendar-li")[2];
-//            element_temp2.classList.remove("cls-calendar-bold");
             break;
         case 5:
             day = "Friday";
@@ -375,8 +363,6 @@ function getFoodTruckAddress() {
             
             element_temp1 = document.getElementsByClassName("cls-calendar-li")[4];
             element_temp1.classList.add("cls-calendar-bold");
-//            element_temp2 = document.getElementsByClassName("cls-calendar-li")[3];
-//            element_temp2.classList.remove("cls-calendar-bold");
             break;
         case  6:
             day = "Saturday";
@@ -386,8 +372,6 @@ function getFoodTruckAddress() {
             
             element_temp1 = document.getElementById("id-weekend");
             element_temp1.classList.add("cls-calendar-bold");
-//            element_temp2 = document.getElementsByClassName("cls-calendar-li")[4];
-//            element_temp2.classList.remove("cls-calendar-bold");
     }
     return ft_address;
 }
@@ -446,3 +430,9 @@ function closeOneItem(tis) {
         }
     }
 }
+
+//        var headerHeight = $('.cls-bgimage').height() + 'px';
+//        console.log("headerHeight", headerHeight);
+//        if (headerHeight != "0px") {
+//            $('.cls-section-foodtruck').css('margin-top', headerHeight);
+//        }
