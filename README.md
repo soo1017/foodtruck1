@@ -1,6 +1,6 @@
 # FoodTruck-Online-Order
 
-Responive and Dynamic Web Application enabling Restaurant and FoodTruck online ordering
+Responive (Updated soon) and Dynamic Web Application enabling Restaurant and FoodTruck online ordering
 
 Features:
 1. NodeJS, Express, Handlebar, MongoDB, and other packages used.
