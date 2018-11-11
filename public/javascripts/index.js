@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
     carousel();
     
-    if (window.location.href == 'http://localhost:3000/' || window.location.href == 'http://localhost:3000/#id-menus' || window.location.href == 'http://localhost:3000/#id-foodtruck') {
+    if (window.location.href == 'http://localhost:3000' || window.location.href == 'http://localhost:3000/' || window.location.href == 'http://localhost:3000/#id-menus' || window.location.href == 'http://localhost:3000/#id-foodtruck') {
         if (getFoodTruckAddress() != 'Off') {
             ft_address = getFoodTruckAddress();
         } else {
