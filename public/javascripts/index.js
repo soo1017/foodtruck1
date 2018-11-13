@@ -6,6 +6,7 @@ var ft_address = '33592 Alvarado-Niles Rd, Union City, CA';
 $(document).ready(function() {
     // on certain links save the scroll postion.
     $('.saveScrollPosition').on("click", function (e) {
+<<<<<<< HEAD
         var currentYOffset = window.pageYOffset;  // save current page postion.;
         document.cookie = 'jumpToScrollPosition=' + currentYOffset;
     });
@@ -17,16 +18,32 @@ $(document).ready(function() {
         } else {
             ft_address = '33592 Alvarado-Niles Rd, Union City, CA';
         }
+=======
+//        e.preventDefault();
+        var currentYOffset = window.pageYOffset;  // save current page postion.;    
+        document.cookie = 'jumpToScrollPosition=' + currentYOffset;
+    });
+    carousel();
+
+    if (getFoodTruckAddress() == 'Off') {
+        ft_address = '33592 Alvarado-Niles Rd, Union City, CA';
+    } else {
+        ft_address = getFoodTruckAddress();
+>>>>>>> 2nd commit
     }
+
 
     // check if we should jump to postion.
     if(document.cookie) {
         var allcookie = document.cookie;
-        console.log("allcookie: ", allcookie);
         var cookieArray = allcookie.split(';');
         var value;
         for (var i=0; i<cookieArray.length; i++) {
+<<<<<<< HEAD
             if (cookieArray[i].split('=')[0] == 'jumpToScrollPosition' && cookieArray[i].split('=')[1] != '0') {
+=======
+            if (cookieArray[i].split('=')[0] == 'jumpToScrollPosition' && cookieArray[i].split('=')[1] != 0) {
+>>>>>>> 2nd commit
                 value = cookieArray[i].split('=')[1];
                 break;
             }
@@ -44,15 +61,32 @@ $(document).ready(function() {
         });
     }
     
+    $(document).bind( "mouseup touchend", function(e){
+        if (!$('#id-shoppingcart').is(e.target) // if the target of the click isn't the container...
+                && $('#id-shoppingcart').has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            document.getElementById('id-shoppingcart').classList.remove("show");
+            document.getElementById('id-shoppingcart').classList.add("hide");
+        }
+        if (!$('#id-mobile-menu-ul').is(e.target) // if the target of the click isn't the container...
+                && $('#id-mobile-menu-ul').has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            document.getElementById('id-mobile-menu-ul').classList.remove("show");
+            document.getElementById('id-mobile-menu-ul').classList.add("hide");
+        }
+    });
+    
+    
     if (document.getElementById('id-navcart')) {
-        document.getElementById('id-navcart').addEventListener('click', function() {
+        document.getElementById('id-navcart').addEventListener('click', function(e) {
+//            e.preventDefault();
             var x = document.getElementById('id-shoppingcart').className;
             var arr_class = x.split(" ");
             var string_url = window.location.href;
             var user_string = string_url.match(/http\:\/\/localhost\:3000\/user/g);
             var checkout_string = string_url.match(/http\:\/\/localhost\:3000\/shop\/checkout/g);
             var thanks_string = string_url.match(/http\:\/\/localhost\:3000\/shop\/thanks/g);
-
+            
             if (user_string === null || user_string.length == 0) {      // Not User
                 if ( checkout_string === null || checkout_string.length == 0) { // Not CheckOut
                     if (thanks_string === null || thanks_string.length == 0) {
@@ -63,6 +97,10 @@ $(document).ready(function() {
                             } else if (arr_class[i] == 'hide') {
                                 document.getElementById('id-shoppingcart').classList.remove("hide");
                                 document.getElementById('id-shoppingcart').classList.add("show");
+                                
+                                document.getElementById('id-mobile-menu-ul').classList.remove("show");
+                                document.getElementById('id-mobile-menu-ul').classList.add("hide");
+                                document.getElementById('id-mobile-menu').name = "menu";
                             } else {
                             }
                         }
@@ -71,6 +109,7 @@ $(document).ready(function() {
             } 
         });
     }
+    
     if (document.getElementById('id-cartclose')) {
         document.getElementById('id-cartclose').addEventListener('click', function() {
             document.getElementById('id-shoppingcart').classList.remove("show");
@@ -78,11 +117,6 @@ $(document).ready(function() {
     //        delete_cookie('currUrl');
         });
     }
-    
-//    $('button[form]').click(function (){        // To make it work on both HTML5 ready browser and IE, here is my jQuery 
-//        var formId = $(this).attr('form'); 
-//        $('#' + formId).submit(); 
-//    });
     
     //// Admin Order Monitor
     /////////////////////////////////////
@@ -100,6 +134,55 @@ $(document).ready(function() {
     setInterval(function(){
        $('.sign-monitor').load('/admin/monitor/order-update');
     }, 10000) /* time in milliseconds (ie 2 seconds)*/
+    
+    // Media Queries
+    $('.js--mobile-btn').click(function() {
+        var nav = $('.js--main-div');
+        var icon = $('.js--mobile-btn i');
+
+        // nav.slideToggle(200);
+        if (nav.css('display') == 'none') {
+            nav.css('display', 'block');
+            $('.main-nav11').css('display', 'block');
+        } else {
+            nav.css('display', 'none');
+            $('.main-nav11').css('display', 'none');
+        }
+        $('.cls-more').css('display', 'none');
+        
+        if (icon.hasClass('ion-navicon-round')) {
+            icon.addClass('ion-close-round');
+            icon.removeClass('ion-navicon-round');
+        } else {
+            icon.addClass('ion-navicon-round');
+            icon.removeClass('ion-close-round');
+        }
+    });
+    
+    //// Mobile
+    /////////////////////////////////////
+    if (document.getElementById('id-mobile-menu')) {
+        document.getElementById('id-mobile-menu').addEventListener('click', function(e) {
+            e.preventDefault();
+            var x = document.getElementById('id-mobile-menu-ul').className;
+            var arr_class1 = x.split(" ");
+            for (var i=0; i<arr_class1.length; i++) {
+                if (arr_class1[i] == 'show') {
+                    document.getElementById('id-mobile-menu-ul').classList.remove("show");
+                    document.getElementById('id-mobile-menu-ul').classList.add("hide");
+                    this.name = "menu";
+                } else if (arr_class1[i] == 'hide') {
+                    document.getElementById('id-mobile-menu-ul').classList.remove("hide");
+                    document.getElementById('id-mobile-menu-ul').classList.add("show");
+                    this.name = "close";
+                    
+                    document.getElementById('id-shoppingcart').classList.remove("show");
+                    document.getElementById('id-shoppingcart').classList.add("hide");
+                } else {
+                }
+            }
+        });
+    }
 });
 
 // Helper Function
@@ -111,11 +194,33 @@ Handlebars.registerHelper('with', function(context, options) {
 
 // Function
 ///////////////////////////
+var tempNum = 0;
 function carousel() {
-    var i;
-    var x = document.getElementsByClassName("cls-slides");
+    var x = [];
+    
+    if (document.getElementsByClassName("cls-slides1")[tempNum]) {
+        if (document.getElementsByClassName("cls-slides1")[tempNum].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides1");
+        }
+    }
+    if (document.getElementsByClassName("cls-slides2")[tempNum]) {
+        if (document.getElementsByClassName("cls-slides2")[tempNum].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides2");
+        }
+    }
+    if (document.getElementsByClassName("cls-slides3")[tempNum]) {
+        if (document.getElementsByClassName("cls-slides3")[tempNum].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides3");
+        }
+    }
+    if (document.getElementsByClassName("cls-slides4")[tempNum]) {
+        if (document.getElementsByClassName("cls-slides4")[tempNum].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides4");
+        }
+    }
+    
     var dots = document.getElementsByClassName("demo");
-    for (i = 0; i < x.length; i++) {
+    for (var i = 0; i < x.length; i++) {
         x[i].style.display = "none"; 
     }
     slideNum++;
@@ -123,9 +228,14 @@ function carousel() {
     for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" cls-white", "");
     }
-    x[slideNum-1].style.display = "block"; 
-    dots[slideNum-1].className += " cls-white";
-    setTimeout(carousel, 4000); // Change image every 2 seconds
+    tempNum = slideNum - 1;
+    if (x[slideNum-1]) {
+        x[slideNum-1].style.display = "block"; 
+    }
+    if (dots[slideNum-1]) {
+        dots[slideNum-1].className += " cls-white";
+    }
+    setTimeout(carousel, 5000); // Change image every 5 seconds
 }
 
 function currentDiv(n) {
@@ -133,9 +243,32 @@ function currentDiv(n) {
 }
 
 function showDivs(n) {
-    console.log("slideNum: ", slideNum);
-    var i;
-    var x = document.getElementsByClassName("cls-slides");
+    var i, x;
+    for (var j=0; j<3; j++) {
+        if (document.getElementsByClassName("cls-slides1")[j].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides1");
+            break;
+        }
+    }
+    for (var j=0; j<3; j++) {
+        if (document.getElementsByClassName("cls-slides2")[j].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides2");
+            break;
+        }
+    }
+    for (var j=0; j<3; j++) {
+        if (document.getElementsByClassName("cls-slides3")[j].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides3");
+            break;
+        }
+    }
+    for (var j=0; j<3; j++) {
+        if (document.getElementsByClassName("cls-slides4")[j].offsetWidth != '0') {
+            x = document.getElementsByClassName("cls-slides4");
+            break;
+        }
+    }
+
     var dots = document.getElementsByClassName("demo");
     if (n > x.length) {slideNum = 1}    
     if (n < 1) {slideNum = x.length}
@@ -145,13 +278,17 @@ function showDivs(n) {
     for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" cls-white", "");
     }
-    x[slideNum-1].style.display = "block";  
-    dots[slideNum-1].className += " cls-white";
+    tempNum = slideNum - 1;
+    if (x[slideNum-1]) {
+        x[slideNum-1].style.display = "block";  
+    }
+    if (dots[slideNum-1]) {
+        dots[slideNum-1].className += " cls-white";
+    }
 }
 
 function initMap() {
     var geocoder = new google.maps.Geocoder();
-
     geocoder.geocode( { 'address': ft_address}, function(results, status) {
 
         if (status == google.maps.GeocoderStatus.OK) {
@@ -312,28 +449,47 @@ function getFoodTruckAddress() {
     switch (new Date().getDay()) {
         case 0:
             day = "Sunday";
+<<<<<<< HEAD
             link = document.getElementsByClassName("cls-span-calendar")[5];
             address_temp = link.innerText || link.textContent;
             ft_address = address_temp.replace("'", "");
             
             element_temp1 = document.getElementById("id-weekend");
             element_temp1.classList.add("cls-calendar-bold");
+=======
+            if (document.getElementsByClassName("cls-span-calendar")[5]) {
+                link = document.getElementsByClassName("cls-span-calendar")[5];
+                address_temp = link.innerText || link.textContent;
+                ft_address = address_temp.replace("'", "");
+            }
+            if (element_temp1 = document.getElementById("id-weekend")) {
+                element_temp1 = document.getElementById("id-weekend");
+                element_temp1.classList.add("cls-calendar-bold");
+            }
+>>>>>>> 2nd commit
             break;
         case 1:
             day = "Monday";
-            link = document.getElementsByClassName("cls-span-calendar")[0];
-            address_temp = link.innerText || link.textContent;
-            ft_address = address_temp.replace("'", "");
+            if (document.getElementsByClassName("cls-span-calendar")[0]) {
+                link = document.getElementsByClassName("cls-span-calendar")[0];
+                address_temp = link.innerText || link.textContent;
+                ft_address = address_temp.replace("'", "");
+            }
             
-            element_temp1 = document.getElementsByClassName("cls-calendar-li")[0];
-            element_temp1.classList.add("cls-calendar-bold");
+            if (document.getElementsByClassName("cls-calendar-li")[0]) {
+                element_temp1 = document.getElementsByClassName("cls-calendar-li")[0];
+                element_temp1.classList.add("cls-calendar-bold");
+            }
             break;
         case 2:
             day = "Tuesday";
-            link = document.getElementsByClassName("cls-span-calendar")[1];
-            address_temp = link.innerText || link.textContent;
-            ft_address = address_temp.replace("'", "");
+            if (document.getElementsByClassName("cls-span-calendar")[1]) {
+                link = document.getElementsByClassName("cls-span-calendar")[1];
+                address_temp = link.innerText || link.textContent;
+                ft_address = address_temp.replace("'", "");
+            }
             
+<<<<<<< HEAD
             element_temp1 = document.getElementsByClassName("cls-calendar-li")[1];
             element_temp1.classList.add("cls-calendar-bold");
             break;
@@ -372,6 +528,60 @@ function getFoodTruckAddress() {
             
             element_temp1 = document.getElementById("id-weekend");
             element_temp1.classList.add("cls-calendar-bold");
+=======
+            if (document.getElementsByClassName("cls-calendar-li")[1]) {
+                element_temp1 = document.getElementsByClassName("cls-calendar-li")[1];
+                element_temp1.classList.add("cls-calendar-bold");
+            }
+            break;
+        case 3:
+            day = "Wednesday";
+            if (document.getElementsByClassName("cls-span-calendar")[2]) {
+                link = document.getElementsByClassName("cls-span-calendar")[2];
+                address_temp = link.innerText || link.textContent;
+                ft_address = address_temp.replace("'", "");
+            }
+            if (document.getElementsByClassName("cls-calendar-li")[2]) {
+                element_temp1 = document.getElementsByClassName("cls-calendar-li")[2];
+                element_temp1.classList.add("cls-calendar-bold");
+            }
+            break;
+        case 4:
+            day = "Thursday";
+            if (document.getElementsByClassName("cls-span-calendar")[3]) {
+                link = document.getElementsByClassName("cls-span-calendar")[3];
+                address_temp = link.innerText || link.textContent;
+                ft_address = address_temp.replace("'", "");
+            }
+            if (document.getElementsByClassName("cls-calendar-li")[3]) {
+                element_temp1 = document.getElementsByClassName("cls-calendar-li")[3];
+                element_temp1.classList.add("cls-calendar-bold");
+            }
+            break;
+        case 5:
+            day = "Friday";
+            if (document.getElementsByClassName("cls-span-calendar")[4]) {
+                link = document.getElementsByClassName("cls-span-calendar")[4];
+                address_temp = link.innerText || link.textContent;
+                ft_address = address_temp.replace("'", "");
+            }
+            if (document.getElementsByClassName("cls-calendar-li")[4]) {
+                element_temp1 = document.getElementsByClassName("cls-calendar-li")[4];
+                element_temp1.classList.add("cls-calendar-bold");
+            }
+            break;
+        case  6:
+            day = "Saturday";
+            if (document.getElementsByClassName("cls-span-calendar")[5]) {
+                link = document.getElementsByClassName("cls-span-calendar")[5];
+                address_temp = link.innerText || link.textContent;
+                ft_address = address_temp.replace("'", "");
+            }
+            if (document.getElementById("id-weekend")) {
+                element_temp1 = document.getElementById("id-weekend");
+                element_temp1.classList.add("cls-calendar-bold");
+            }
+>>>>>>> 2nd commit
     }
     return ft_address;
 }
@@ -420,8 +630,6 @@ function closeOneItem(tis) {
     var totalPrice1 = totalPrice0.parentNode;
     var totalPrice = totalPrice1.nextElementSibling;
     var completeIcon = deletedLi.children[1].firstChild;
-    console.log("deletedLi: ", deletedLi);
-    console.log("completeIcon: ", completeIcon);
     if (completeIcon.name == 'checkbox') {
         var ret1 = confirm("Are you sure?");
         if (ret1 == true) {
@@ -436,3 +644,25 @@ function closeOneItem(tis) {
 //        if (headerHeight != "0px") {
 //            $('.cls-section-foodtruck').css('margin-top', headerHeight);
 //        }
+<<<<<<< HEAD
+=======
+
+//    if ($("#id-shoppingcart").hasClass("show")) {
+//        $(document).on('click', function(event) {
+//            console.log("hi");
+//            console.log("length: ", $(event.target).closest('#id-shoppingcart').length);
+//            console.log("true: ", $("#id-shoppingcart").hasClass("show"));
+//            if (!$(event.target).closest('#id-shoppingcart').length && $("#id-shoppingcart").hasClass("show")) {
+//                console.log("hihi");
+//                document.getElementById('id-shoppingcart').classList.remove("show");
+//                document.getElementById('id-shoppingcart').classList.add("hide");
+//            } 
+//        });
+//    }
+
+    
+//    $('button[form]').click(function (){        // To make it work on both HTML5 ready browser and IE, here is my jQuery 
+//        var formId = $(this).attr('form'); 
+//        $('#' + formId).submit(); 
+//    });
+>>>>>>> 2nd commit

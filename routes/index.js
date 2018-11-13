@@ -39,13 +39,17 @@ router.get('/remove-one-fromcart/:id', function(req, res, next) {
                 return res.redirect('/');
             }
             
-            var cart = new Cart(req.session.cart);
-        
-            matchedProduct = cart.items[productId].item;
+            var cart = new Cart(req.session.cart ? req.session.cart : {});
+            
             // Remove one item from cart
             if (!cart.items[productId]) {
-                return res.render('shops/menus', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', sushis: data[0], noodles: data[1], drinks: data[2]});
+                if (!cart.items) {
+                    return res.render('shops/menus', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', sushis: data[0], noodles: data[1], drinks: data[2], ftlocations: locs, currentUrl: null });
+                } else {
+                    return res.render('index', {title: 'UpTaste', sushis: data[0], noodles: data[1], drinks: data[2], cartItems: cart.generateArray(), totalPrice: cart.totalPrice.toFixed(2), totalQty: cart.totalQty, Qtys: cart.totalQty > 1, ftlocations: locs, cartOpen: 'yes', currentUrl: null });
+                }
             }
+            matchedProduct = cart.items[productId].item;
             cart.items[productId].qty--;
             cart.items[productId].price -= matchedProduct.price;
             if (cart.items[productId].qty == 0) {
@@ -70,10 +74,10 @@ router.get('/clear-cart', function(req, res, next) {
             if (err1) {
                 return res.redirect('/');
             }
-            var cart = new Cart(req.session.cart);
+            var cart = new Cart(req.session.cart ? req.session.cart : {});
             // Remove Cart
-            if (!cart) {
-                return res.render('shops/menus', {title: 'UpTaste', cartItems: null, className: 'show', sushis: data[0], noodles: data[1], drinks: data[2]});
+            if (!cart.items) {
+                return res.render('shops/menus', {title: 'UpTaste', cartItems: null, className: 'show', sushis: data[0], noodles: data[1], drinks: data[2], ftlocations: locs, currentUrl: null });
             }
             cart.items = {};
             cart.totalPrice = 0.00;

@@ -72,7 +72,6 @@ router.post('/contentmanage/modify-ftlocation', isAdminLoggedIn, function(req, r
 router.post('/contentmanage/delete-food', isAdminLoggedIn, function(req, res, next) {         // before notLoggedIn Middleware
     var name = req.body.name;
     Product.findOneAndDelete({name: name}, function(err, product) {
-        console.log("product: ", product);
         if (err) {
             return res.redirect('/admin/contentmanage');
         }
@@ -115,7 +114,6 @@ router.post('/contentmanage/add-food', isAdminLoggedIn, function(req, res, next)
     }).on('error', function(err) {
         console.log(err);
     }).on('end', function() {
-        console.log("tempproduct: ", tempproduct);
         var product = new Product(tempproduct);
         product.save(function(err, result) {
             if (err) {
@@ -153,7 +151,6 @@ router.use('/', notAdminLoggedIn, function(req, res, next) {
 
 /* GET Sign UP page. */
 router.get('/signup', function(req, res, next) {
-    console.log("admin singup");
     var messages = req.flash('error');
     res.render('admin/signup', {title: 'UpTaste', csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0, carouseDisabled: "yes", footerDisabled: 'yes', adminHeader: "yes"});
 });
@@ -187,7 +184,6 @@ router.post('/signin', passport.authenticate('local.adminsignin', {
 }), function(req, res, next){                   // run only when success
     if (req.session.oldUrl) {                   // the case from checkout case
         var oldUrl = req.session.oldUrl;
-        console.log("olfUrl: ", oldUrl);
         req.session.oldUrl = null;
         res.redirect(oldUrl);
     } else {                                    // general browsing
@@ -220,7 +216,6 @@ router.post('/forgot', function(req, res, next) {
 router.get('/forgotpass/:token', function(req, res, next) {
     var messages = req.flash('error');
     var infomessages = req.flash('info');
-//    console.log("req.params: ", req.params);
     User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() }, isAdmin: true }, function(err, admin) {
         if (err) {
             return res.redirect('/admin/forgot');

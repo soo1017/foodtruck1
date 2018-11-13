@@ -51,13 +51,18 @@ router.get('/remove-one-fromcart/:id', function(req, res, next) {
     var matchedProduct = {};
     var size = 3;
     makeChunkForSize(size).then(function(data) {
-        var cart = new Cart(req.session.cart);
+        var cart = new Cart(req.session.cart ? req.session.cart : {});
         
-        matchedProduct = cart.items[productId].item;
+        
         // Remove one item from cart
         if (!cart.items[productId]) {
-            return res.render('shops/menus', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', sushis: data[0], noodles: data[1], drinks: data[2]});
+            if (!cart.items) {
+                return res.render('shops/menus', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', sushis: data[0], noodles: data[1], drinks: data[2], carouseDisabled: "yes", currentUrl: "/shop"});
+            } else {
+                return res.render('shops/menus', {title: 'UpTaste', cartItems: cart.generateArray(), totalPrice: cart.totalPrice.toFixed(2), totalQty: cart.totalQty, Qtys: cart.totalQty > 1, cartOpen: 'yes', sushis: data[0], noodles: data[1], drinks: data[2], carouseDisabled: "yes", currentUrl: "/shop"});
+            }
         }
+        matchedProduct = cart.items[productId].item;
         cart.items[productId].qty--;
         cart.items[productId].price -= matchedProduct.price;
         if (cart.items[productId].qty == 0) {
@@ -81,7 +86,7 @@ router.get('/clear-cart', function(req, res, next) {
        
         var cart = new Cart(req.session.cart);
         // Remove Cart
-        if (!cart) {
+        if (!cart.items) {
             return res.render('shops/menus', {title: 'UpTaste', cartItems: null, className: 'show', sushis: data[0], noodles: data[1], drinks: data[2]});
         }
         cart.items = {};
@@ -103,7 +108,6 @@ router.get('/checkout', isLoggedIn, function(req, res, next) {
         return res.redirect('/shop');
     }
     Order.findOne({user: userId}, function(err, order) {
-        console.log("order: ", order);
         if (err) {
             return res.redirect('/shop');
         }
@@ -121,7 +125,6 @@ router.get('/checkout', isLoggedIn, function(req, res, next) {
         var cart = new Cart(req.session.cart);
         var errMsg = req.flash('error')[0];
         req.session.cart = cart;
-        console.log("preorder: ", preorder);
         res.render('shops/checkout', {title: 'UpTaste', csrfToken: req.csrfToken(), cartItems: cart.generateArray(), totalPrice: cart.totalPrice.toFixed(2), totalQty: cart.totalQty, Qtys: cart.totalQty > 1, pickupLoc: cart.pickupLoc, errMsg: errMsg, noErrors: !errMsg, isLoggedIn: req.isAuthenticated(), carouseDisabled: "yes", preorder: preorder });
     });
 });
@@ -176,48 +179,9 @@ router.get('/checkout/clear-cart-guest', function(req, res, next) {
 });
 
 /* POST Checkout. */ 
-// with Stripe Payment
-//router.post('/checkout', isLoggedIn, function(req, res, next) {
-//    if (!req.session.cart) {
-//        return res.redirect('/shop/checkout');
-//    }
-//    var cart = new Cart(req.session.cart); 
-//    
-//    var stripe = require("stripe")("sk_test_f9syjsCbMuNNKpUslErXqhQr");
-//
-//    stripe.charges.create({
-//        amount: cart.totalPrice * 100,
-//        currency: "usd",
-//        source: req.body.stripeToken, // obtained with Stripe.js
-//        description: "UpTaste Charge"
-//    }, function(err, charge) {
-//        if (err) {
-//            req.flash('error', err.message);
-//            return res.redirect('/shop/checkout')
-//        }
-//        // save Cart into DB
-//        var order = new Order({
-//            user: req.user,             // In case of login only
-//            cart: cart,
-//            address: req.body.address,
-//            name: req.body.name,
-//            paymentId: charge.id        // from Stripe
-//        });
-//        order.save(function(err, result) {
-//            if (err) {
-//                return res.send(err);
-//            }
-//            req.flash('success', 'Successfully bought product');
-//            req.session.cart = null;
-//            res.redirect('/shop/thanks');
-//        })
-//    });
-//});
-
-/* POST Checkout. */ 
 // without Stripe Payment
 router.post('/checkout', isLoggedIn, function(req, res, next) {
-    console.log("req: ", req);
+
     if (!req.session.cart) {
         return res.redirect('/shop/checkout');
     }
@@ -248,49 +212,10 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
     });
 });
 
-/* POST Checkout with a Guest */
-// with Stripe Payment
-//router.post('/checkout-guest', function(req, res, next) {
-//    if (!req.session.cart) {
-//        return res.redirect('/shop/checkout-guest');
-//    }
-//    var cart = new Cart(req.session.cart); 
-//    
-//    var stripe = require("stripe")("sk_test_f9syjsCbMuNNKpUslErXqhQr");
-//
-//    stripe.charges.create({
-//        amount: cart.totalPrice * 100,
-//        currency: "usd",
-//        source: req.body.stripeToken, // obtained with Stripe.js
-//        description: "UpTaste Charge"
-//    }, function(err, charge) {
-//        if (err) {
-//            req.flash('error', err.message);
-//            return res.redirect('/shop/checkout-guest')
-//        }
-//        // save Cart into DB
-//        var order = new Order({
-//            //user: req.user,             // In case of login only
-//            cart: cart,
-//            address: req.body.address,
-//            name: req.body.name,
-//            paymentId: charge.id        // from Stripe
-//        });
-//        order.save(function(err, result) {
-//            if (err) {
-//                return res.send(err);
-//            }
-//            req.flash('success', 'Successfully bought product');
-//            req.session.cart = null;
-//            res.redirect('/shop/thanks');
-//        })
-//    });
-//});
-
 /* POST Checkout with a guest. */ 
 // without Stripe Payment
 router.post('/checkout-guest', function(req, res, next) {
-    console.log("shop-checkout-guest: ", req.body);
+ 
     if (!req.session.cart) {
         return res.redirect('/shop/checkout-guest');
     }
@@ -351,11 +276,15 @@ router.get('/checkout/remove-one-fromcart/:id', isLoggedIn, function(req, res, n
     
     var cart = new Cart(req.session.cart);
         
-    matchedProduct = cart.items[productId].item;
     // Remove one item from cart
     if (!cart.items[productId]) {
-        return res.render('shops/checkout', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', sushis: data[0], noodles: data[1], drinks: data[2]});
+        if (!cart.items) {
+            return res.render('shops/checkout', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', carouseDisabled: "yes", pickupLoc: cart.pickupLoc});
+        } else {
+            return res.render('shops/checkout', {title: 'UpTaste', cartItems: cart.generateArray(), totalPrice: cart.totalPrice.toFixed(2), totalQty: cart.totalQty, pickupLoc: cart.pickupLoc, carouseDisabled: "yes", isLoggedIn: req.isAuthenticated() });
+        }
     }
+    matchedProduct = cart.items[productId].item;
     cart.items[productId].qty--;
     cart.items[productId].price -= matchedProduct.price;
     if (cart.items[productId].qty == 0) {
@@ -375,11 +304,17 @@ router.get('/checkout/remove-one-fromcart-guest/:id', function(req, res, next) {
     
     var cart = new Cart(req.session.cart);
         
-    matchedProduct = cart.items[productId].item;
+   
     // Remove one item from cart
     if (!cart.items[productId]) {
-        return res.render('shops/checkout', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', sushis: data[0], noodles: data[1], drinks: data[2]});
+        if (!cart.items) { 
+            return res.render('shops/checkout', {title: 'UpTaste', cartItems: null, cartOpen: 'yes', carouseDisabled: "yes", pickupLoc: cart.pickupLoc});
+        }
+        else {
+            return res.render('shops/checkout', {title: 'UpTaste', cartItems: cart.generateArray(), totalPrice: cart.totalPrice.toFixed(2), totalQty: cart.totalQty, pickupLoc: cart.pickupLoc, carouseDisabled: "yes", isLoggedIn: req.isAuthenticated() });
+        } 
     }
+    matchedProduct = cart.items[productId].item;
     cart.items[productId].qty--;
     cart.items[productId].price -= matchedProduct.price;
     if (cart.items[productId].qty == 0) {
@@ -406,14 +341,12 @@ module.exports = router;
 
 /// Middlewares
 function isLoggedIn(req, res, next) {
-    console.log("req: ", req);
     if (req.isAuthenticated()) {
         return next();
     }
     // after login, redirect into checkout page directly
     var baseurl = req.baseUrl;
     req.session.oldUrl = baseurl.concat('', req.url);
-    console.log("req: ", req.session.oldUrl);
     res.redirect('/user/signin');
 }
 
@@ -421,3 +354,83 @@ function printReq(req, res, next) {
     console.log("req: ", req);
     next();
 }
+
+
+/* POST Checkout. */ 
+// with Stripe Payment
+//router.post('/checkout', isLoggedIn, function(req, res, next) {
+//    if (!req.session.cart) {
+//        return res.redirect('/shop/checkout');
+//    }
+//    var cart = new Cart(req.session.cart); 
+//    
+//    var stripe = require("stripe")("sk_test_f9syjsCbMuNNKpUslErXqhQr");
+//
+//    stripe.charges.create({
+//        amount: cart.totalPrice * 100,
+//        currency: "usd",
+//        source: req.body.stripeToken, // obtained with Stripe.js
+//        description: "UpTaste Charge"
+//    }, function(err, charge) {
+//        if (err) {
+//            req.flash('error', err.message);
+//            return res.redirect('/shop/checkout')
+//        }
+//        // save Cart into DB
+//        var order = new Order({
+//            user: req.user,             // In case of login only
+//            cart: cart,
+//            address: req.body.address,
+//            name: req.body.name,
+//            paymentId: charge.id        // from Stripe
+//        });
+//        order.save(function(err, result) {
+//            if (err) {
+//                return res.send(err);
+//            }
+//            req.flash('success', 'Successfully bought product');
+//            req.session.cart = null;
+//            res.redirect('/shop/thanks');
+//        })
+//    });
+//});
+
+
+/* POST Checkout with a Guest */
+// with Stripe Payment
+//router.post('/checkout-guest', function(req, res, next) {
+//    if (!req.session.cart) {
+//        return res.redirect('/shop/checkout-guest');
+//    }
+//    var cart = new Cart(req.session.cart); 
+//    
+//    var stripe = require("stripe")("sk_test_f9syjsCbMuNNKpUslErXqhQr");
+//
+//    stripe.charges.create({
+//        amount: cart.totalPrice * 100,
+//        currency: "usd",
+//        source: req.body.stripeToken, // obtained with Stripe.js
+//        description: "UpTaste Charge"
+//    }, function(err, charge) {
+//        if (err) {
+//            req.flash('error', err.message);
+//            return res.redirect('/shop/checkout-guest')
+//        }
+//        // save Cart into DB
+//        var order = new Order({
+//            //user: req.user,             // In case of login only
+//            cart: cart,
+//            address: req.body.address,
+//            name: req.body.name,
+//            paymentId: charge.id        // from Stripe
+//        });
+//        order.save(function(err, result) {
+//            if (err) {
+//                return res.send(err);
+//            }
+//            req.flash('success', 'Successfully bought product');
+//            req.session.cart = null;
+//            res.redirect('/shop/thanks');
+//        })
+//    });
+//});

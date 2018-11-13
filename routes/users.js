@@ -95,7 +95,6 @@ router.post('/signin', printReq, passport.authenticate('local.signin', {
 }), function(req, res, next){                   // run only when success
     if (req.session.oldUrl) {                   // the case from checkout case
         var oldUrl = req.session.oldUrl;
-        console.log("olfUrl: ", oldUrl);
         req.session.oldUrl = null;
         res.redirect(oldUrl);
     } else {                                    // general browsing

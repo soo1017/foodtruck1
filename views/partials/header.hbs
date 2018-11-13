@@ -1,143 +1,163 @@
 {{# if adminHeader}}
     {{# if logoOut}}
     {{else}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light nav-header">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">  
-            <div class="nav-item my-2 admin-navbar-header admin-mainlogo">
-                <a href="/" class="navbar-brand"><img src="/images/logo.png" alt="uptaste logo" class=""></a>
-            </div>
-
+    <nav class="navbar nav-header admin-nav-header">
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-light nav-header">-->
+        <div class="admin-mainlogo" id="navbarSupportedContent">  
+            <a href="/" class="navbar-brand"><img src="/images/logo.png" alt="uptaste logo" class=""></a>
         </div>
     </nav>
     {{/if}}
 {{else}}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light nav-header">
-<!--
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
--->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active option">
-                <a class="nav-link" href="/#id-foodtruck">FOODTRUCK <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/#id-menus">MENUS</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/shop">ORDER</a>
-            </li>
-        </ul>
-        <div class="nav-item my-2 navbar-header mainlogo">
+<nav class="navbar nav-header">
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light nav-header">-->
+
+    <div class="navbar-content-nonmobile" id="navbarSupportedContent">
+<!--    <div class="nonmobilecollapse navbar-collapse" id="navbarSupportedContent">-->
+        <div class="mobile-menu mobile">
+            <ion-icon name="menu" id="id-mobile-menu"></ion-icon>
+            <div class="mobile-menu-dropdown hide" id="id-mobile-menu-ul">
+                <ul>
+                    <li><a class="nav-link" href="/#id-foodtruck">FT</a></li>
+                    <li><a class="nav-link" href="/#id-menus">MENUS</a></li>
+                    <li><a class="nav-link" href="/shop">ORDER</a></li>
+                    {{# if login }}
+                    <li><a class="nav-link" href="/user/profile">USER</a></li>
+                    <li><a class="nav-link" href="/user/logout">SIGNOUT</a></li>
+                    {{ else }}
+                    <li><a class="nav-link" href="/user/signup">SIGNUP</a></li>
+                    <li><a class="nav-link" href="/user/signin">SIGNIN</a></li>
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-menu">
+            <ul class="navbar-menu-ul non-mobile">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/#id-foodtruck"><img src="/images/food-truck.png" alt="ftruck logo" class=""></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/#id-menus">MENUS</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/shop">ORDER</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mainlogo">
+<!--        <div class="nav-item my-2 navbar-header mainlogo">-->
             <a href="/" class="navbar-brand"><img src="/images/logo.png" alt="uptaste logo" class=""></a>
         </div>
-        <div class="navbar-navs mr-auto" style="display:none">
-            <a href="/" class="navbar-order"></a>
-        </div>
-        <ul class="navbar-nav my-2 my-lg-0">
-            <li class="nav-item dropdown active cls-cart">
-                <div class="navcart" id="id-navcart">
-                    <img src="/images/cart.png" alt="Smiley face" height="40" width="40">
-                    <span class='badge badge-warning cartcount'>{{session.cart.totalQty}}</span>
-                </div>
-<!--                -->
-<!--                -->
-                {{#if cartOpen}}
-                <div id="id-shoppingcart" class="shoppingcart shows">
-                {{else}}
-                <div id="id-shoppingcart" class="shoppingcart hide">
-                {{/if}}
-                    <div class="yes-items">
-                        <div class="shoppingcart-head">
-                            <p>
-                                <span id="count-cart">{{totalQty}}</span>
-                                {{# if Qtys}}
-                                <span id="item-cart">items</span>
-                                {{else}}
-                                <span id="item-cart">item</span>
-                                {{/if}}
-                            </p>
-                            <span id="id-cartclose">&times;</span>
-                        </div>
-                        <div class="shoppingcart-ready">
-                            <p class="ready-cart">Ready within 20-25 min</p>
-                        </div>
-                        
-                        <div class="shoppingcart-content">
-                            <ul class="content-ul" id="content-ul">
-                                <!---->
-                                {{#if currentUrl}}
-                                    {{#each cartItems}}
-                                    <li>
-                                        <p>{{this.item.name}}</p>
-                                        <a href="/shop/remove-one-fromcart/{{this.item._id}}"><ion-icon name="close-circle" id="id-item-delete"></ion-icon></a>
-                                        <p class="content-price">{{this.item.price}}</p>
-                                    </li>
-                                    {{/each}}
-                                {{else}}
-                                    {{#each cartItems}}
-                                    <li>
-                                        <p>{{this.item.name}}</p>
-                                        <a href="/remove-one-fromcart/{{this.item._id}}"><ion-icon name="close-circle" id="id-item-delete"></ion-icon></a>
-                                        <p class="content-price">{{this.item.price}}</p>
-                                    </li>
-                                    {{/each}}
-                                {{/if}}
-                            </ul>
-                        </div>
-                        <hr style="width:90%">
-                        <div class="shoppingcart-pay">
-                            <p>You Pay<span id="id-youpay">${{totalPrice}}</span></p>
-                        </div>
-                        {{# if cartItems}}
-                        <div class="shoppingcart-button">
-                        {{else}}
-                        <div class="shoppingcart-button hide">
+        <div class="navbar-conn">
+            <ul class="navbar-conn-ul">
+<!--            <ul class="navbar-nav my-2 my-lg-0">-->
+                <li class="nav-item dropdown active cls-cart">
+                    <div class="navcart" id="id-navcart">
+                        <img src="/images/cart.png" alt="Smiley face" class="cart-image">
+                        <span class='badge badge-warning cartcount'>{{session.cart.totalQty}}</span>
+                    </div>
+    <!--                -->
+                    
+    <!--                -->
+                </li>
+
+                <li class="nav-item dropdown active cls-user non-mobile">
+    <!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> User</a>-->
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/images/user.png" alt="Smiley face" height="44" width="44"></a>
+                    <div class="dropdown-menu user" aria-labelledby="navbarDropdown">
+                        {{# if login }}
+                            <a class="dropdown-item" href="/user/profile">User Account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/user/logout">SignOut</a>
+                        {{ else }}
+                            <a class="dropdown-item" href="/user/signup">SignUp</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/user/signin">SignIn</a>
                         {{/if}}
-                            {{# if login }}
-                                <div>
-                                    <a href="/shop/checkout" class="btn btn-success" id="id-checkout-btn">Proceed to Checkout</a>
-                                </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+<!--                -->
+                    {{#if cartOpen}}
+                    <div id="id-shoppingcart" class="shoppingcart shows">
+                    {{else}}
+                    <div id="id-shoppingcart" class="shoppingcart hide">
+                    {{/if}}
+                        <div class="yes-items">
+                            <div class="shoppingcart-head">
+                                <p>
+                                    <span id="count-cart">{{totalQty}}</span>
+                                    {{# if Qtys}}
+                                    <span id="item-cart">items</span>
+                                    {{else}}
+                                    <span id="item-cart">item</span>
+                                    {{/if}}
+                                </p>
+                                <span id="id-cartclose">&times;</span>
+                            </div>
+                            <div class="shoppingcart-ready">
+                                <p class="ready-cart">Ready within 20-25 min</p>
+                            </div>
+
+                            <div class="shoppingcart-content">
+                                <ul class="content-ul" id="content-ul">
+                                    <!---->
+                                    {{#if currentUrl}}
+                                        {{#each cartItems}}
+                                        <li>
+                                            <p>{{this.item.name}}</p>
+                                            <a href="/shop/remove-one-fromcart/{{this.item._id}}"><ion-icon name="close-circle" id="id-item-delete"></ion-icon></a>
+                                            <p class="content-price">{{this.item.price}}</p>
+                                        </li>
+                                        {{/each}}
+                                    {{else}}
+                                        {{#each cartItems}}
+                                        <li>
+                                            <p>{{this.item.name}}</p>
+                                            <a href="/remove-one-fromcart/{{this.item._id}}"><ion-icon name="close-circle" id="id-item-delete"></ion-icon></a>
+                                            <p class="content-price">{{this.item.price}}</p>
+                                        </li>
+                                        {{/each}}
+                                    {{/if}}
+                                </ul>
+                            </div>
+                            <hr style="width:90%">
+                            <div class="shoppingcart-pay">
+                                <p>You Pay<span id="id-youpay">${{totalPrice}}</span></p>
+                            </div>
+                            {{# if cartItems}}
+                            <div class="shoppingcart-button">
                             {{else}}
-                                <div>
-                                    <a href="/shop/checkout" class="btn btn-success" id="id-checkout-btn">Proceed with SignIn</a>
-                                </div>
-                                <div>
-                                    <a href="/shop/checkout-guest" class="btn btn-outline-success" id="id-checkout-btn">Proceed with a Guest</a>
-                                </div>
+                            <div class="shoppingcart-button hide">
                             {{/if}}
-                            <br>
-                            <div>
-                                {{#if currentUrl}}
-                                <a href="/shop/clear-cart" class = "clearcart">Clear Cart</a>
+                                {{# if login }}
+                                    <div>
+                                        <a href="/shop/checkout" class="btn btn-success" id="id-checkout-btn">Proceed to Checkout</a>
+                                    </div>
                                 {{else}}
-                                <a href="/clear-cart" class = "clearcart">Clear Cart</a>
+                                    <div>
+                                        <a href="/shop/checkout" class="btn btn-success" id="id-checkout-btn">Proceed with SignIn</a>
+                                    </div>
+                                    <div>
+                                        <a href="/shop/checkout-guest" class="btn btn-outline-success" id="id-checkout-btn">Proceed with a Guest</a>
+                                    </div>
                                 {{/if}}
+                                <br>
+                                <div>
+                                    {{#if currentUrl}}
+                                    <a href="/shop/clear-cart" class = "clearcart">Clear Cart</a>
+                                    {{else}}
+                                    <a href="/clear-cart" class = "clearcart">Clear Cart</a>
+                                    {{/if}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
         
-            <li class="nav-item dropdown active cls-user">
-<!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> User</a>-->
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/images/user.png" alt="Smiley face" height="44" width="44"></a>
-                <div class="dropdown-menu user" aria-labelledby="navbarDropdown">
-                    {{# if login }}
-                        <a class="dropdown-item" href="/user/profile">User Account</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/user/logout">SignOut</a>
-                    {{ else }}
-                        <a class="dropdown-item" href="/user/signup">SignUp</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/user/signin">SignIn</a>
-                    {{/if}}
-                </div>
-            </li>
-        </ul>
     </div>
+    
 </nav>
 {{/if}}
     
@@ -146,12 +166,28 @@
 {{else}}
 <div id="id-bgimage" class="cls-bgimage show">
 {{/if}}
-    <img class="cls-slides" src="http://localhost:3000/images/carouse/dish1.jpg" style="width:100%;height:100%">
-    <img class="cls-slides" src="http://localhost:3000/images/carouse/dish2.jpg" style="width:100%;height:100%">
-    <img class="cls-slides" src="http://localhost:3000/images/carouse/dish3.jpg" style="width:100%;height:100%">    
+    <img class="cls-slides1 slide1" src="http://localhost:3000/images/carouse/dish1.jpg" style="width:100%;height:100%">
+    <img class="cls-slides1 slide1" src="http://localhost:3000/images/carouse/dish2.jpg" style="width:100%;height:100%">
+    <img class="cls-slides1 slide1" src="http://localhost:3000/images/carouse/dish3.jpg" style="width:100%;height:100%">  
+    
+    <img class="cls-slides2 slide2" src="http://localhost:3000/images/carouse/dish4.jpg" style="width:100%;height:100%">
+    <img class="cls-slides2 slide2" src="http://localhost:3000/images/carouse/dish5.jpg" style="width:100%;height:100%">
+    <img class="cls-slides2 slide2" src="http://localhost:3000/images/carouse/dish6.jpg" style="width:100%;height:100%"> 
+    
+    <img class="cls-slides3 slide3" src="http://localhost:3000/images/carouse/dish7.jpg" style="width:100%;height:100%">
+    <img class="cls-slides3 slide3" src="http://localhost:3000/images/carouse/dish8.jpg" style="width:100%;height:100%">
+    <img class="cls-slides3 slide3" src="http://localhost:3000/images/carouse/dish9.jpg" style="width:100%;height:100%"> 
+    
+    <img class="cls-slides4 slide4" id="id-slide4" src="http://localhost:3000/images/carouse/dish10.jpg" style="width:100%;height:100%">
+    <img class="cls-slides4 slide4" id="id-slide4" src="http://localhost:3000/images/carouse/dish11.jpg" style="width:100%;height:100%">
+    <img class="cls-slides4 slide4" id="id-slide4" src="http://localhost:3000/images/carouse/dish12.jpg" style="width:100%;height:100%"> 
     <div class="cls-center cls-display-bottommiddle cls-container cls-text-white" style="width:100%">
         <span class="cls-badge demo cls-border cls-transparent cls-hover-white" onclick="currentDiv(1)"></span>
         <span class="cls-badge demo cls-border cls-transparent cls-hover-white" onclick="currentDiv(2)"></span>
         <span class="cls-badge demo cls-border cls-transparent cls-hover-white" onclick="currentDiv(3)"></span>
     </div>
 </div>
+    
+    
+    
+ 
