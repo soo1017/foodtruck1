@@ -40,24 +40,4 @@ var emailAdminUserWithToken = function(req, res, flag) {
 
 module.exports = {emailAdminUserWithToken};
 
-//Sample code:
-//var email_smtp = nodemailer.createTransport({      
-//  host: "smtp.gmail.com",
-//  auth: {
-//    type: "OAuth2",
-//    user: "youremail@gmail.com",
-//    clientId: "CLIENT_ID_HERE",
-//    clientSecret: "CLIENT_SECRET_HERE",
-//    refreshToken: "REFRESH_TOKEN_HERE"                              
-//  }
-//});
-//And if you still want to use just plain text password, disable secure login on your google account and use as follows:
-//
-//var email_smtp = nodemailer.createTransport({      
-//  host: "smtp.gmail.com",
-//  auth: {
-//    type: "login", // default
-//    user: "youremail@gmail.com",
-//    pass: "PASSWORD_HERE"
-//  }
-//});
+// Need to use GMAIL clientId, clientSecret, refreshToken
